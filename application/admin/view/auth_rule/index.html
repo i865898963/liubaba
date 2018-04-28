@@ -1,0 +1,58 @@
+{layout name="public/layout" /}
+<div class="col-md-10">
+    <ol class="breadcrumb">
+        <li><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+        <li><a href="#">规则管理</a></li>
+        <li class="active">规则列表</li>
+        <a href="" style="float:right;height:25px;" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span></a>
+        <span style="clear:both"></span>
+    </ol>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button class="btn btn-danger" onclick="delAll()"> <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;批量删除</button>
+
+                <a href="{:url('add')}"  class="btn btn-primary" style="color: white;"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;添加规则</a>
+            <div class="pull-right" style="margin-left:30px;"><p class="tot">共有数据:&nbsp;<b id="tot"></b>&nbsp;条</p></div>
+            <form class="form-inline pull-right" action="{:url('index')}" role="form" >
+                <div class="form-group">
+                    <input type="text" name="search" class="form-control" placeholder="请输入要搜索内容">
+                </div>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search">&nbsp;搜索</span></button>
+            </form>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th><input type="checkbox" name="" id="" class="checkAll"></th>
+                    <th>id</th>
+                    <th>权限名称</th>
+                    <th>控制器/方法</th>
+                    <th>级别</th>
+                    <th>操作</th>
+                 {volist name="data" id="val"}
+                    <tr>
+                    <td><input type="checkbox" name="" id="" class="checkAll"></td>
+                    <td>{$val.id}</td>
+                    <td><?php if($val['level']!=0){
+                               echo '|';
+                        }
+                            echo str_repeat('----',$val['level']);
+                        ?>{$val.name}</td>
+                    <td>{$val.action}</td>
+                    <td>{$val.level}级别</td>
+                    <td><a class="glyphicon glyphicon-trash" href="{:url('del',array('id'=>$val.id))}"></a>&nbsp;&nbsp;|&nbsp;&nbsp; <a class="glyphicon glyphicon-tag" href="{:url('update',array('id'=>$val.id))}"></a></td>
+
+                     </tr>
+
+                 {/volist}
+                </tr>
+            </table>
+
+        </div>
+        <div class="panel-footer">
+
+        </div>
+    </div>
+</div>
+
+
